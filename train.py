@@ -1,4 +1,5 @@
 import argparse
+import time
 
 import mlconfig
 import torch
@@ -32,7 +33,7 @@ def init_process(backend, init_method, world_size, rank):
     )
 
 
-def main():
+def main():    
     torch.backends.cudnn.benchmark = True
 
     args = parse_args()
@@ -67,4 +68,7 @@ def main():
 
 
 if __name__ == "__main__":
+    t_start = time.time()
     main()
+    t_end = time.time() - t_start
+    print("Total training time: {:.1f}".format(t_end))

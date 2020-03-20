@@ -1,6 +1,8 @@
-# EfficientNet
+# Trainer node for EfficientNet
 
-https://arxiv.org/abs/1905.11946
+- EfficientNet: https://arxiv.org/abs/1905.11946
+- Base code forked from https://github.com/narumiruna/efficientnet-pytorch
+
 
 ## Prerequisites
 
@@ -8,6 +10,14 @@ https://arxiv.org/abs/1905.11946
 - Python 3
   - torch 1.0.1
   - torchvision 0.2.2.post3
+  - mlconfig
+  - tqdm
+  - future
+  - flask-restful
+  - requests
+  - httplib2
+  - validators
+  - pyYAML
 
 ## Usage
 
