@@ -48,11 +48,12 @@ class Trainer(AbstractTrainer):
     def fit(self):
         epochs = trange(self.epoch, self.num_epochs + 1, desc='Epoch', ncols=0)
         for self.epoch in epochs:
-            self.scheduler.step()
+            #self.scheduler.step() # FIXME: this will be invoked after self.train()
 
             train_loss, train_acc = self.train()
             valid_loss, valid_acc = self.evaluate()
-
+            self.scheduler.step() # Moved from the above
+            
             self.save_checkpoint(os.path.join(self.output_dir, 'checkpoint.pth'))
             if valid_acc > self.best_acc:
                 self.best_acc = valid_acc.value

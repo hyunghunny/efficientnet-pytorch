@@ -1,0 +1,31 @@
+{
+    "dataset": "CIFAR10",
+    "model": "efficientnet",
+    "config": { 
+        "max_epoch": 50
+    },
+    "hyperparams": {
+        "batch_size": {
+            "type": "int",
+            "value_type": "preordered",
+            "default" : 32,
+            "range": [16, 32, 64]            
+        },
+        "lr" : {
+            "type": "float",
+            "value_type": "continuous",
+            "default": 1e-2,
+            "range": [1e-4, 5e-2]
+        },
+        "optimizer": {
+            "type": "str",
+            "value_type": "categorical",
+            "default": "SGD", 
+            "range": [
+                "SGD",
+                "Adam"
+            ]            
+        }
+
+    }
+}
