@@ -6,11 +6,11 @@ hp_config: CIFAR10-efficientnet
 hp_config_dir: ./hp_conf/
 
 eval_func: tune_efficientnet_cifar10
-port: 6102
+port: 6103
 
 # if you have many computing devices (e.g., NVIDIA GPU cards) in a machine, 
 # the below options isolate the run environment using CUDA_VISIBLE_DEVICES.
 resource_type: gpu
-resource_id: 2
+resource_id: 3
 
 debug_mode: false # Set true to show debug messages
