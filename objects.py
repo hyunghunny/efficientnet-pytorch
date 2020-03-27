@@ -59,10 +59,11 @@ def create_yaml_config(config, max_epoch):
     return cfg_path
 
 
-def update_epoch_loss(num_epoch, train_loss, valid_loss):
+def update_epoch_acc(num_epoch, valid_acc):
     global START_TIME
+    valid_error = 1.0 - float(valid_acc)
     elapsed_time = time.time() - START_TIME
-    update_current_loss(num_epoch, valid_loss, elapsed_time)
+    update_current_loss(num_epoch, valid_error, elapsed_time)
 
 
 ''' SOTA classification problem '''
@@ -78,7 +79,7 @@ def tune_efficientnet_cifar10(config, fail_err=0.9, **kwargs):
 
     cfg_path = create_yaml_config(config, max_epoch)
 
-    train(cfg_path, epoch_cb=update_epoch_loss)
+    train(cfg_path, epoch_cb=update_epoch_acc)
 
 
 if __name__ == "__main__":

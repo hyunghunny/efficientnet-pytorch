@@ -64,7 +64,7 @@ class Trainer(AbstractTrainer):
                                    f'best valid acc: {self.best_acc:.2f}')
             
             if epoch_cb:
-                epoch_cb(self.epoch, train_loss, valid_loss)
+                epoch_cb(self.epoch, valid_acc)
 
 
     def train(self):
