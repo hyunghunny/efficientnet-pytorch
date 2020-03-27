@@ -64,7 +64,7 @@ class Trainer(AbstractTrainer):
                                    f'best valid acc: {self.best_acc:.2f}')
             
             if epoch_cb:
-                epoch_cb(self.epoch, valid_acc.value)
+                epoch_cb(self.epoch, valid_acc.value/100.0) # XXX:valid accuracy has percent value
 
 
     def train(self):

@@ -61,6 +61,9 @@ def create_yaml_config(config, max_epoch):
 
 def update_epoch_acc(num_epoch, valid_acc):
     global START_TIME
+    if valid_acc > 1.0:
+        valid_acc = float(valid_acc / 100.0)
+    debug("validation accuracy at {}: {}".format(num_epoch, valid_acc))
     valid_error = 1.0 - float(valid_acc)
     elapsed_time = time.time() - START_TIME
     update_current_loss(num_epoch, valid_error, elapsed_time)
