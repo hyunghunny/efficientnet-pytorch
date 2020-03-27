@@ -17,12 +17,12 @@ def get_resource():
     return RESOURCE
 
 
-def create_yaml_config(config, max_epoch):
+def create_yaml_config(dataset, config, max_epoch):
 
     run_id = get_resource().get_id()
     
     try:
-        with open('configs/cifar10.yaml') as template:
+        with open('configs/{}.yaml'.format(dataset)) as template:
             conf_dict = yaml.load(template, Loader=yaml.FullLoader)
         
         # update configuration
@@ -39,6 +39,10 @@ def create_yaml_config(config, max_epoch):
         if "lr" in config:
             lr = config['lr']
             conf_dict['optimizer']['lr'] = lr
+
+        if "weight_decay" in config:
+            wd = config['weight_decay']
+            conf_dict['optimizer']['weight_decay'] = wd
 
         if 'optimizer' in config:
             opt = config['optimizer']
@@ -80,9 +84,25 @@ def tune_efficientnet_cifar10(config, fail_err=0.9, **kwargs):
         if "iter_unit" in kwargs and kwargs["iter_unit"] == "epoch":
             max_epoch = kwargs["max_iters"]   
 
-    cfg_path = create_yaml_config(config, max_epoch)
+    cfg_path = create_yaml_config('cifar10', config, max_epoch)
 
     train(cfg_path, epoch_cb=update_epoch_acc)
+
+
+@objective_function
+def tune_efficientnet_cifar100(config, fail_err=0.99, **kwargs):
+    global START_TIME
+    START_TIME = time.time()
+
+    max_epoch = 90
+    if "max_iters" in kwargs:
+        if "iter_unit" in kwargs and kwargs["iter_unit"] == "epoch":
+            max_epoch = kwargs["max_iters"]   
+
+    cfg_path = create_yaml_config('cifar100', config, max_epoch)
+
+    train(cfg_path, epoch_cb=update_epoch_acc)
+
 
 
 if __name__ == "__main__":
