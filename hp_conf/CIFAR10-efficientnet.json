@@ -2,7 +2,7 @@
     "dataset": "CIFAR10",
     "model": "efficientnet",
     "config": { 
-        "max_epoch": 10
+        "max_epoch": 50
     },
     "hyperparams": {
         "batch_size": {

@@ -6,7 +6,7 @@ from future.utils import iteritems
 
 from ws.shared.logger import * 
 from ws.shared.proto import ManagerPrototype 
-import ws.shared.lookup as lookup
+
 
 from ws.wot.workers.surrogates import SurrogateEvaluator
 
@@ -92,6 +92,7 @@ class TrainingJobManager(ManagerPrototype):
             
             worker = None
             if self.use_surrogate and "surrogate" in cfg:
+                import ws.shared.lookup as lookup
                 s = cfg['surrogate']
                 l = lookup.load(s)
                 ffr = None
