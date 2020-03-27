@@ -2,7 +2,7 @@
 
 credential : "********" # Auth password. Set to be same between hpo_runner and train_node
 
-hp_config: CIFAR10-efficientnets
+hp_config: CIFAR10-efficientnet
 hp_config_dir: ./hp_conf/
 
 eval_func: tune_efficientnet_cifar10
