@@ -1,6 +1,6 @@
 trainer:
   name: Trainer
-  num_epochs: 90
+  num_epochs: 10
   output_dir: experiments/cifar10
 
 model:
@@ -10,7 +10,7 @@ model:
 dataset:
   name: CIFAR10DataLoader
   root: data
-  batch_size: 32
+  batch_size: 16
   image_size: 224
   num_workers: 16
 
@@ -18,7 +18,7 @@ optimizer:
   name: SGD
   lr: 1.25e-2
 
-  
+
 scheduler:
   name: MultiStepLR
   milestones: [30, 60, 80]

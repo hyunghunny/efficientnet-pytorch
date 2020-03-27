@@ -45,7 +45,7 @@ class Trainer(AbstractTrainer):
         self.epoch = 1
         self.best_acc = 0
 
-    def fit(self):
+    def fit(self, epoch_cb=None):
         epochs = trange(self.epoch, self.num_epochs + 1, desc='Epoch', ncols=0)
         for self.epoch in epochs:
             #self.scheduler.step() # FIXME: this will be invoked after self.train()
@@ -62,6 +62,10 @@ class Trainer(AbstractTrainer):
             epochs.set_postfix_str(f'train loss: {train_loss}, train acc: {train_acc}, '
                                    f'valid loss: {valid_loss}, valid acc: {valid_acc}, '
                                    f'best valid acc: {self.best_acc:.2f}')
+            
+            if epoch_cb:
+                epoch_cb(self.epoch, train_loss, valid_loss)
+
 
     def train(self):
         self.model.train()

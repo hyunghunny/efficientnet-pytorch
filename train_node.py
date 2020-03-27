@@ -10,6 +10,7 @@ import validators as valid
 
 from objects import * # load object functions
 
+
 def main(run_config):    
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 

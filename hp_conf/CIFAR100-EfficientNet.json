@@ -1,6 +1,6 @@
 {
     "dataset": "CIFAR100",
-    "model": "EfficientNet",
+    "model": "efficientnet",
     "config": { 
         "max_epoch": 90
     },

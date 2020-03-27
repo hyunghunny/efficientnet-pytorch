@@ -35,18 +35,19 @@ def init_process(backend, init_method, world_size, rank):
 
 def main():    
     args = parse_args()
-    train(args.config, args.backend, args.init_method, 
+    train(args.config, 
+          args.backend, args.init_method, 
           args.world_size, args.rank, args.no_cuda,
           args.resume, args.data_parallel)
 
 
-def train(config, 
+def train(cfg_path, 
           backend='nccl', init_method='tcp://127.0.0.1:23456', world_size=1, rank=0, 
-          no_cuda=False, resume=None, data_parallel=False
+          no_cuda=False, resume=None, data_parallel=False, epoch_cb=None
           ):
     t_start = time.time()
     torch.backends.cudnn.benchmark = True
-    cfg = mlconfig.load(config)
+    cfg = mlconfig.load(cfg_path)
     print(cfg)
 
     if world_size > 1:
@@ -73,7 +74,7 @@ def train(config,
     if resume is not None:
         trainer.resume(resume)
 
-    trainer.fit()
+    trainer.fit(epoch_cb)
     t_end = time.time() - t_start
     print("Total training time: {:.1f}".format(t_end))
 

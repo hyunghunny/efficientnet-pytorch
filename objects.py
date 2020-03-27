@@ -5,15 +5,17 @@ import yaml
 from ws.apis import *
 from ws.shared.read_cfg import *
 from ws.shared.logger import *
-
+from train import train
 
 from ws.shared.worker import WorkerResource
 
 RESOURCE = WorkerResource() # allocated computing resource identifier
+START_TIME = None
 
 def get_resource():
     global RESOURCE
     return RESOURCE
+
 
 def create_yaml_config(config, max_epoch):
 
@@ -57,10 +59,17 @@ def create_yaml_config(config, max_epoch):
     return cfg_path
 
 
+def update_epoch_loss(num_epoch, train_loss, valid_loss):
+    global START_TIME
+    elapsed_time = time.time() - START_TIME
+    update_current_loss(num_epoch, valid_loss, elapsed_time)
+
 
 ''' SOTA classification problem '''
 @objective_function
 def tune_efficientnet_cifar10(config, fail_err=0.9, **kwargs):
+    global START_TIME
+    START_TIME = time.time()
 
     max_epoch = 90
     if "max_iters" in kwargs:
@@ -69,8 +78,9 @@ def tune_efficientnet_cifar10(config, fail_err=0.9, **kwargs):
 
     cfg_path = create_yaml_config(config, max_epoch)
 
-    # TODO:load train.main() here
-    
+    train(cfg_path, epoch_cb=update_epoch_loss)
+
+
 if __name__ == "__main__":
     # for config test only
     config = {'batch_size': 16, 'lr': 1.5e-3, 'optimizer': 'Adam', 'model_type': 'b1'}
