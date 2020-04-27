@@ -1,5 +1,6 @@
 import os
 
+import pandas as pd
 import numpy as np
 
 from ws.shared.read_cfg import read_hyperparam_config
@@ -18,8 +19,6 @@ def check_lookup_existed(name, lookup_dir=LOOKUP_DIR):
 
 
 def load(data_type, lookup_dir=LOOKUP_DIR, config_folder='hp_conf/', grid_order=None):
-    import pandas as pd
-
     grid_shuffle = False
     if grid_order == 'shuffle':
         grid_shuffle = True
