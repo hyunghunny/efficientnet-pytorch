@@ -1,0 +1,16 @@
+# Train node configuration
+
+credential : "********" # Auth password. Set to be same between hpo_runner and train_node
+
+hp_config: CIFAR10-efficientnet3
+hp_config_dir: ./hp_conf/
+
+eval_func: tune_efficientnet_cifar10
+port: 6103
+
+# if you have many computing devices (e.g., NVIDIA GPU cards) in a machine, 
+# the below options isolate the run environment using CUDA_VISIBLE_DEVICES.
+resource_type: gpu
+resource_id: 3
+
+debug_mode: false # Set true to show debug messages
